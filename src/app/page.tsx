@@ -9,8 +9,8 @@ const page = () => {
     <div className='flex h-100 gap-6 p-5'>
       <RecoilRootProvider>
         {/* <React.Suspense fallback={<div>Loading</div>}> */}
-        <Recoil />
-        {/* <Jotai /> */}
+        {/* <Recoil /> */}
+        <Jotai />
         {/* <Zustand /> */}
         {/* </React.Suspense> */}
       </RecoilRootProvider>

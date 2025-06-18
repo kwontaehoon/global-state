@@ -2,36 +2,48 @@
 
 import React from 'react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { countAtom, darkModeAtom, doubleCountAtom, incrementAtom } from '@/store/jotai'
+import { countAtom, darkModeAtom, doubleCountAtom, incrementAtom, hydrateAtom } from '@/store/jotai'
 import ReadOnlyFunc from './ReadOnly'
 import WriteOnlyFunc from './WriteOnly'
-import { atomWithStorage, RESET } from 'jotai/utils'
+import { atomWithStorage, RESET, useHydrateAtoms } from 'jotai/utils'
+import Storage from './storage'
+import Loadable from './loadable'
+import Observable from './observable'
+import Lazy from './lazy'
 
-const page = () => {
+type PageProps = {
+  data: number
+}
 
-  console.log("rendering")
+const Page = ({data}: PageProps) => {
 
-  // const [count, setCount] = useAtom(countAtom)
-  // const useAtomValueCount = useAtomValue(countAtom)
-  // const [double] = useAtom(doubleCountAtom)
-  // const increment = useSetAtom(incrementAtom)
+  console.log("rendering", data)
 
-  const [darkMode, setDarkMode] = useAtom(darkModeAtom)
+  // useHydrateAtoms([
+  //   [hydrateAtom, data],
+  // ]);
+
+  const [count, setCount] = useAtom(countAtom)
+  const [double] = useAtom(doubleCountAtom)
+  const increment = useSetAtom(incrementAtom)
+
+  // SSR hydrate
+  // const [hydrate, setHydrate] = useAtom(hydrateAtom)
 
   
   return (
     <div className='flex-1 border p-2'>
-      {/* <div>count: {count}</div>
-      <div>useAtomValue count: {useAtomValueCount}</div>
+      <div>count: {count}</div>
       <div>double: {double}</div>
-      <button onClick={increment}>버튼</button> */}
-      <ReadOnlyFunc />
-      <WriteOnlyFunc />
-      <h1>Welcome to {darkMode ? 'dark' : 'light'} mode!</h1>
-      <button onClick={() => setDarkMode(!darkMode)}>toggle theme</button>
-      <button onClick={() => setDarkMode(RESET)}>Reset (to 'hello')</button>
+      <button className='border rounded px-2 py-1 bg-gray-300 font-bold' onClick={increment}>count 버튼</button>
+      {/* <ReadOnlyFunc /> */}
+      {/* <WriteOnlyFunc /> */}
+      {/* <Storage /> */}
+      {/* <Loadable /> */}
+      {/* <Observable /> */}
+      {/* <Lazy /> */}
     </div>
   )
 }
 
-export default page
+export default Page

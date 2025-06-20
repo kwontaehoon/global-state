@@ -34,7 +34,7 @@ export const recoilAsyncQuery = selector({
 
 export const recoilAsyncFamilyState = atomFamily({
   key: 'recoilAsyncFamilyState',
-  default: 2
+  default: 1
 })
 
 export const recoilAsyncFamilyQuery = selectorFamily({
@@ -47,6 +47,43 @@ export const recoilAsyncFamilyQuery = selectorFamily({
     } catch (error) {
       throw new Error('서버 내부 오류');
     }
-
   }
+})
+
+// historyList
+export const historyList:any[] = []
+
+// atomEffects func
+const atomEffectFunc = () => ({ setSelf, onSet, trigger }: any) => {
+
+  onSet(async (newValue: any, oldValue: any) => {
+    historyList.push(oldValue)
+  })
+
+  // trigger가 'get'일 때 비동기 초기화 실행
+  if (trigger === 'get') {
+    // 내부에 async 함수 선언 후 실행
+    (async () => {
+      try {
+        const data = await axios.get(`http://localhost:8080/api/test2?page=0`)
+        setSelf(data?.data)
+      } catch (error) {
+        console.error("초기화 데이터 요청 실패: ", error)
+      }
+    })()
+  }
+}
+
+
+// history atom
+export const historyAtom = atom<number[]>({
+  key: 'historyAtom',
+  default: [],
+})
+
+// atomEffects
+export const effectsState = atom({
+  key: 'effectsState',
+  default: 'effectsState',
+  effects: [atomEffectFunc()]
 })

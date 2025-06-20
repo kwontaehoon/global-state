@@ -5,6 +5,7 @@ import axios from 'axios'
 import { recoilAsyncFamilyQuery, recoilAsyncFamilyState, recoilAsyncQuery, recoilAsyncState, recoilSelector, recoilState } from '@/store/recoil'
 import { useRecoilState, useRecoilValue, useSetRecoilState, useRecoilValueLoadable, useRecoilCallback, useRecoilRefresher_UNSTABLE } from 'recoil'
 import ErrorMessage from './errorMessage'
+import Effects from './effects'
 
 const Page = () => {
 
@@ -48,6 +49,7 @@ const Page = () => {
       {asyncFamilyQueryValue.state !== 'hasValue' ? <div>Loading</div> : <p>값: {asyncFamilyQueryValue.contents}</p>}
       <div onClick={()=>refreshAsyncFamilyQuery()}>리프레시 버튼</div>
       <ErrorMessage error="error입니다" />
+      <Effects />
     </div>
   )
 }

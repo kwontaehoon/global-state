@@ -10,6 +10,10 @@ import Storage from './storage'
 import Loadable from './loadable'
 import Observable from './observable'
 import Lazy from './lazy'
+import Reset from './reset'
+import WithDefault from './withDefault'
+import Refresh from './refresh'
+import Family from './family'
 
 type PageProps = {
   data: number
@@ -42,6 +46,10 @@ const Page = ({data}: PageProps) => {
       {/* <Loadable /> */}
       {/* <Observable /> */}
       {/* <Lazy /> */}
+      {/* <Reset /> */}
+      {/* <WithDefault /> */}
+      {/* <Refresh /> */}
+      <Family />
     </div>
   )
 }

@@ -4,7 +4,8 @@ import React from 'react'
 
 const lazy = () => {
 
-    const [lazyValue, setLazyValue] = useAtom(lazyAtom)
+  const [lazyValue, setLazyValue] = useAtom(lazyAtom)
+  
   return (
     <div>lazy</div>
   )

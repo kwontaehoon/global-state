@@ -10,11 +10,11 @@ const page = () => {
     <div className='flex h-100 gap-6 p-5'>
       <RecoilRootProvider>
         <JotaiProvider>
-        <React.Suspense fallback={<div>Loading</div>}>
+        {/* <React.Suspense fallback={<div>Loading</div>}> */}
         {/* <Recoil /> */}
         <Jotai />
         {/* <Zustand /> */}
-        </React.Suspense>
+        {/* </React.Suspense> */}
         </JotaiProvider>
       </RecoilRootProvider>
     </div>

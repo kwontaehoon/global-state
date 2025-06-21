@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { atomWithStorage, useHydrateAtoms, loadable, atomWithObservable, atomWithLazy, atomWithReset, RESET, atomWithDefault, atomWithRefresh, atomFamily } from 'jotai/utils';
+import { atomWithStorage, useHydrateAtoms, loadable, atomWithObservable, atomWithLazy, atomWithReset, RESET, atomWithDefault, atomWithRefresh, atomFamily, atomWithReducer, selectAtom, splitAtom } from 'jotai/utils';
 import { interval, map, Observable } from 'rxjs';
 
 // read + Write
@@ -64,4 +64,60 @@ export const postsAtom = atomWithRefresh((get) =>
 export const todoAtomFamily = atomFamily((id: number) =>
     atom(`Todo item ${id}`) // id별로 다른 atom 생성
 )
-  
+
+// atomCallback
+export const callbackCountAtom = atom(0)
+export const callbackDataAtom = atom(0)
+
+// atomWithReducer
+type CountAction = 
+  | { type: 'increment' }
+  | { type: 'decrement' }
+  | { type: 'reset' }
+  | { type: 'set'; payload: number }
+
+const countReducer = (prev: number, action: CountAction): number => {
+  switch (action.type) {
+    case 'increment':
+      return prev + 1
+    case 'decrement':
+      return prev - 1
+    case 'reset':
+      return 0
+    case 'set':
+      return action.payload
+    default:
+      return prev
+  }
+}
+
+export const reducerAtom = atomWithReducer(0, countReducer)
+
+const defaultPerson = {
+    name: {
+      first: 'Jane',
+      last: 'Doe',
+    },
+    birth: {
+      year: 2000,
+      month: 'Jan',
+      day: 1,
+      time: {
+        hour: 1,
+        minute: 1,
+      },
+    },
+  }
+
+// selectAtom
+export const personAtom = atom(defaultPerson)
+export const nameAtom = selectAtom(personAtom, (person) => person.name)
+export const birthAtom = selectAtom(personAtom, (person) => person.birth)
+
+// splitAtom
+export const todosAtom = atom([
+    { id: 1, text: '코딩하기', done: false},
+    { id: 2, text: '운동하기', done: true }
+])
+
+export const todoAtomsAtom = splitAtom(todosAtom)

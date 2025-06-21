@@ -14,6 +14,10 @@ import Reset from './reset'
 import WithDefault from './withDefault'
 import Refresh from './refresh'
 import Family from './family'
+import Callback from './callback'
+import Reducer from './reducer'
+import Select from './select'
+import Split from './split'
 
 type PageProps = {
   data: number
@@ -49,7 +53,11 @@ const Page = ({data}: PageProps) => {
       {/* <Reset /> */}
       {/* <WithDefault /> */}
       {/* <Refresh /> */}
-      <Family />
+      {/* <Family /> */}
+      {/* <Callback /> */}
+      {/* <Reducer /> */}
+      {/* <Select /> */}
+      <Split />
     </div>
   )
 }

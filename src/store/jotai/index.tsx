@@ -4,6 +4,7 @@ import { interval, map, Observable } from 'rxjs';
 
 // read + Write
 export const countAtom = atom(10)
+countAtom.debugLabel = 'countAtom'
 
 // readOnly
 export const doubleCountAtom = atom((get) => get(countAtom) * 2)
@@ -121,3 +122,10 @@ export const todosAtom = atom([
 ])
 
 export const todoAtomsAtom = splitAtom(todosAtom)
+
+//
+export const textAtom = atom('hello')
+textAtom.debugLabel = 'textAtom'
+
+export const lenAtom = atom((get) => get(textAtom).length)
+lenAtom.debugLabel = 'lenAtom'
